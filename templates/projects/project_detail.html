@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block body %}
+  <h1>{{ project.name }}</h1>
+  {{ project.created_at }}
+  <p>
+    By: <b>{{ project.created_by }}</b>
+  </p>
+  
+  {% if project.created_by == request.user %}
+  <a href="{% url 'projects:project_update' project.id %}" class="btn btn-primary btn-sm">Update</a>     
+  {% endif %}
+  <h3>{{ project.description }}</h3>
+  <p>Members of project</p>
+
+  <ul>
+    {% for member in project.members.all %}
+      <li>{{ member }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Tasks</h2>
+
+  {% if not tasks %}
+    There have no tasks
+  {% else %}
+    <h2>Your Tasks</h2>
+    <ul>
+      {% for task in tasks %}
+        <li>
+          
+          {{ task.title }} <br> Status: <b>{{ task.get_status_display }}</b>  
+          <div class="">Due date:{{task.due_date}}</div>
+          {% if task.assigned_to == request.user %}
+            <a href="{% url 'projects:update_task' project.id task.id %}" class="btn btn-sm btn-primary">Update status</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <br />
+  <a class="btn btn-primary" href="{% url 'projects:task_create' project.pk %}">Add new task</a>
+{% endblock %}

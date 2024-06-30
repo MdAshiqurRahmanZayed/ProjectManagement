@@ -1,0 +1,40 @@
+<header class="mb-3 border-bottom">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+          <use xlink:href="#bootstrap" />
+        </svg>
+      </a>
+
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li>
+          <a href="{% url 'projects:home' %}" class="nav-link px-2 link-dark">Project Management Tool</a>
+        </li>
+      </ul>
+
+      {% if request.user.is_authenticated %}
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-left mb-md-0">
+          <li>
+            <div class="me-3">User:({{ request.user }})</div>
+          </li>
+          <li>
+            <a class="btn btn-primary btn-sm me-3" href="{% url 'projects:project_create' %}">Create project</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'accounts:logout_page' %}">Sign out</a>
+          </li>
+        </ul>
+      {% else %}
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li>
+            <a href="{% url 'accounts:register' %}" class="nav-link px-2 link-dark">Register</a>
+          </li>
+          <li>
+            <a href="{% url 'accounts:login' %}" class="nav-link px-2 link-dark">Login</a>
+          </li>
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</header>

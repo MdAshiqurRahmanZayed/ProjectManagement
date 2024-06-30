@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block body %}
+  <h1>New Task for <b>{{ project }}</b></h1>
+  <form method="post">
+    {% csrf_token %}
+
+    {% if 'update' in request.path %}
+      {{ form.status }} <br>
+      Description:{{task.description}} <br>
+    {% else %}
+      {{ form.as_p }}
+    {% endif %}
+
+    <button class="btn btn-primary btn-sm mt-3" type="submit">Save</button>
+  </form>
+{% endblock %}
